@@ -435,6 +435,17 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:12px;color
   .m-carousel .row-split .small{order:3}
   .g-auto3>.tile{display:flex;flex-direction:column}
   .g-auto3 .big{margin-top:auto !important;padding-top:var(--f3)}
+
+  /* hero: 15+ chip joins the stats row (4 equal columns) */
+  .hero{padding-top:var(--f5)}
+  .hero-grid{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--f2);row-gap:0;align-items:stretch}
+  .hero-grid>div:first-child,.hero .stats{display:contents}
+  .hero .eyebrow,.hero h1,.hero .tag,.hero .lead,.contact-line{grid-column:1/-1}
+  .hero .eyebrow{order:1}.hero h1{order:2}.hero .tag{order:3}.hero .lead{order:4}
+  .chip-cover{order:5;align-self:start;justify-self:center;width:100%;max-width:none;margin:var(--f4) 0 0}
+  .hero .stats .tile{order:6;margin-top:var(--f4);padding:var(--f3) var(--f2) var(--f3) var(--f3);border-radius:var(--f3);width:100%;aspect-ratio:1.618/1}
+  .hero .stats .small{font-size:10.5px;line-height:1.35}
+  .contact-line{order:7;margin-top:var(--f4)}
 }
 @media (max-width: 640px) and (prefers-reduced-motion: no-preference){
   .js .m-carousel>.anim:not(.show){transform:scale(.94)}
@@ -883,6 +894,28 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:12px;color
   window.addEventListener('resize',function(){ var c=current; current=null; setActive(c); spy(); });
   spy();
 
+  /* mobile hero: the 15+ chip's body is 61.8% of its image (1/phi), so the image is sized to
+     tile height x phi -> chip body = stat tile height, and the row never grows past the tiles */
+  var chip=document.querySelector('.chip-cover');
+  var statTiles=[].slice.call(document.querySelectorAll('.hero .stats .tile'));
+  var mq=window.matchMedia('(max-width: 640px)');
+  function sizeChip(){
+    var st=chip.style;
+    st.width=st.height=st.margin=st.display='';
+    if(!mq.matches||!statTiles.length) return;
+    st.display='none';
+    var H=0, W=statTiles[0].offsetWidth;
+    statTiles.forEach(function(t){ H=Math.max(H,t.offsetHeight); });
+    st.display='';
+    var body=Math.min(H,W), S=body/0.618, ov=(S-H)/2;
+    var gap=parseFloat(getComputedStyle(statTiles[0]).marginTop)||0;
+    st.width=st.height=S+'px';
+    st.margin=(gap-ov)+'px '+((W-S)/2)+'px '+(-ov)+'px';
+  }
+  sizeChip();
+  window.addEventListener('resize',sizeChip);
+  window.addEventListener('load',sizeChip);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(sizeChip);
   /* page dots for swipeable card rows (mobile) */
   [].slice.call(document.querySelectorAll('.m-carousel')).forEach(function(c){
     var items=[].slice.call(c.children); if(items.length<2) return;
