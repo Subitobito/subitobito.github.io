@@ -138,8 +138,8 @@ section{padding:72px 0 0}
 .g-perf{grid-template-columns:1fr 2fr;align-items:stretch}
 .g-perf-r{grid-template-columns:repeat(3,1fr)}
 .g-perf-r .span2{grid-column:span 2;grid-row:span 2}
-.rings{position:relative;width:min(100%,380px);margin:14px auto 0}
-.rings b{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(40px,5vw,56px);letter-spacing:-.03em}
+.rings{position:relative;width:min(100%,380px);margin:14px auto 0;container-type:inline-size}
+.rings b{position:absolute;inset:0;display:grid;place-items:center;font-size:14.5cqi;letter-spacing:-.03em}
 .quad{display:grid;grid-template-columns:1fr 1fr;gap:20px 18px}
 .note{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;font-size:13px}
 .note p{margin:0}
@@ -321,7 +321,6 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:12px;color
   .visual figure{margin-top:var(--f4)}
   .visual figure img{max-width:215px}
   .rings{width:215px}
-  .rings b{font-size:var(--t-xl)}
   .ssot{width:178px}
   .tower{width:133px;margin-top:var(--f3)}
   .team-img{width:144px}
@@ -443,8 +442,10 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:12px;color
   .hero .eyebrow,.hero h1,.hero .tag,.hero .lead,.contact-line{grid-column:1/-1}
   .hero .eyebrow{order:1}.hero h1{order:2}.hero .tag{order:3}.hero .lead{order:4}
   .chip-cover{order:5;align-self:start;justify-self:center;width:100%;max-width:none;margin:var(--f4) 0 0}
-  .hero .stats .tile{order:6;margin-top:var(--f4);padding:var(--f3) var(--f2) var(--f3) var(--f3);border-radius:var(--f3);width:100%;aspect-ratio:1.618/1}
-  .hero .stats .small{font-size:10.5px;line-height:1.35}
+  .hero .stats .tile{order:6;margin-top:var(--f4);width:100%;aspect-ratio:1/1;padding:9%;border-radius:22%;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;container-type:inline-size}
+  .hero .stats .big{font-size:33.8cqi;line-height:1}
+  .hero .stats .small{font-size:13.6cqi;line-height:1.25;margin-top:4cqi;min-height:2.5em}
   .contact-line{order:7;margin-top:var(--f4)}
 }
 @media (max-width: 640px) and (prefers-reduced-motion: no-preference){
