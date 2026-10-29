@@ -368,6 +368,74 @@ footer{border-top:1px solid var(--line);padding:22px 0 30px;font-size:12px;color
   .tabbar a{font-size:var(--t-cap);gap:3px}
   .tabbar svg{width:21px;height:21px;padding:5px 13px}
 }
+/* mobile density pass: icon = text x phi, no dead space in tiles */
+@media (max-width: 640px){
+  /* tile headers: 10px label on a 13px line -> 21px icon (13 x phi), 8px gap (21 / phi^2) */
+  .tile-head{gap:var(--f2);margin-bottom:var(--f3)}
+  .tile-head img{width:21px;height:21px}
+  .m-duo .tile-head{align-items:flex-start}
+  .m-duo .tile-head p{line-height:1.3;padding-top:4px}
+
+  /* Team growth: golden split, text 1.618 : chart 1 */
+  .g-lead>.tile:first-child{display:grid;grid-template-columns:1.618fr 1fr;column-gap:var(--f3);
+    grid-template-areas:"head head" "num chart" "desc chart";align-items:end}
+  .g-lead>.tile:first-child .tile-head{grid-area:head}
+  .g-lead>.tile:first-child .big{grid-area:num}
+  .g-lead>.tile:first-child .small{grid-area:desc;align-self:start}
+  .g-lead>.tile:first-child .growth{grid-area:chart;justify-self:end;align-self:end;height:89px;margin:0;gap:var(--f3)}
+  .g-lead>.tile:first-child .growth b{font-size:13px;margin-bottom:2px}
+  .g-lead>.tile:first-child .growth i{width:34px;border-radius:8px;margin-bottom:var(--f1)}
+  .g-lead>.tile:first-child .growth div:first-child i{height:27px !important}
+  .g-lead>.tile:first-child .growth div:last-child i{height:55px !important}
+  .g-lead>.tile:first-child .growth div{font-size:var(--t-cap)}
+  .setup h4{font-size:14px;margin-bottom:var(--f2)}
+  .setup .chips{margin-bottom:var(--f3)}
+
+  /* Automation pipeline: 2 x 2, icon beside a two-line label (icon = label block height) */
+  .pipeline{grid-template-columns:1fr 1fr;gap:var(--f4) var(--f3);text-align:left}
+  .pipeline .step{display:grid;grid-template-columns:34px 1fr;column-gap:var(--f2);align-items:center}
+  .pipeline .step img{grid-row:span 2;width:34px;height:34px;margin:0}
+  .pipeline .step b{font-size:14px;line-height:1.25;align-self:end}
+  .pipeline .step span{font-size:11px;line-height:1.35;align-self:start}
+  .pipe-note{text-align:left;margin-top:var(--f4);padding-top:var(--f3);border-top:1px solid var(--line)}
+
+  /* Topology / CMDB: tighter meters so the three cards share one height */
+  .meter{margin-top:var(--f2)}
+  .meter-top{font-size:var(--t-sm);margin-bottom:var(--f1)}
+  .bar{height:5px}
+  .g-auto3 .big{margin-top:var(--f3) !important}
+
+  /* KPI and RAN cards: number sits close to its icon row */
+  .m-carousel .tile .big,.m-carousel .tile .mid{margin-top:0}
+  .g-ran>.tile p[style*="font-size:14px"]{margin-top:var(--f3) !important}
+
+  /* Journey: Experience / RAN / Team cards */
+  .seg{margin:var(--f3) 0 var(--f1)}
+  .seg i{height:5px}
+  .dots{grid-template-columns:repeat(5,13px);gap:var(--f1)}
+  .dots i{width:13px;height:13px}
+
+  /* Contact: one grouped list, 55px rows, 26px icon for 16px text (16 x phi) */
+  .contact-cards{display:block;max-width:none;background:var(--tile);border-radius:var(--f4);overflow:hidden;box-shadow:var(--shadow)}
+  .contact-cards a.tile{display:flex;align-items:center;gap:var(--f3);min-height:55px;padding:var(--f3) var(--f4);
+    background:none;box-shadow:none;border-radius:0;font-size:15px;font-weight:500}
+  .contact-cards a.tile+a.tile{border-top:1px solid var(--line)}
+  .contact-cards img{width:26px;height:26px}
+  .contact-cards a.tile::after{content:"\203A";margin-left:auto;color:var(--muted);font-size:21px;line-height:1}
+  .end-stats{gap:var(--f4)}
+  .end-stats p:not(.big){font-size:var(--t-sm);line-height:1.35}
+
+  /* equal-height swipe cards with no dead space */
+  .m-carousel .chip{padding:4px var(--f2);font-size:10.5px}
+  .m-carousel .chips{gap:4px}
+  .m-carousel .row-split{display:flex;flex-direction:column;align-items:stretch}
+  .m-carousel .row-split>div:first-child{display:contents}
+  .m-carousel .row-split .big{order:1}
+  .m-carousel .row-split .dots{order:2;grid-template-columns:repeat(10,13px);gap:var(--f1);margin:var(--f2) 0 0}
+  .m-carousel .row-split .small{order:3}
+  .g-auto3>.tile{display:flex;flex-direction:column}
+  .g-auto3 .big{margin-top:auto !important;padding-top:var(--f3)}
+}
 @media (max-width: 640px) and (prefers-reduced-motion: no-preference){
   .js .m-carousel>.anim:not(.show){transform:scale(.94)}
 }
